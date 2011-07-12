@@ -8,25 +8,23 @@ public class SalesTaxCalculator {
     }
 
     public static double getSalesTaxOnItem(Item item) {
-        double tax;
+        double salesTaxOnItem;
 
-        if ((item.getImported() == true) && (item.checkWhetherItemIsExempted() == true)) {
+        if ((item.getImported() == true) && (item.checkWhetherItemIsBasicSalesTaxExemptableOrNot() == true)) {
+            salesTaxOnItem = 0.05 * item.getShelfPrice();
 
-            tax = Math.ceil(0.05 * item.getShelfPrice() * 20) / 20;
+        } else if ((item.getImported() == true) && (item.checkWhetherItemIsBasicSalesTaxExemptableOrNot() == false)) {
+            salesTaxOnItem = 0.15 * item.getShelfPrice();
 
-        } else if ((item.getImported() == true) && (item.checkWhetherItemIsExempted() == false)) {
+        } else if ((item.getImported() == false) && (item.checkWhetherItemIsBasicSalesTaxExemptableOrNot() == true)) {
+            salesTaxOnItem = 0.0;
 
-            tax =  Math.ceil(0.15 * item.getShelfPrice() * 20) / 20;
-        } else if ((item.getImported() == false) && (item.checkWhetherItemIsExempted() == true)) {
-
-            tax =  0.0;
         } else {
-
-           tax =  Math.ceil(0.1 * item.getShelfPrice() * 20) / 20;
+            salesTaxOnItem = 0.1 * item.getShelfPrice();
         }
 
-      
-        return tax;
+        salesTaxOnItem = Math.ceil(salesTaxOnItem * 20) / 20;
+        return salesTaxOnItem;
     }
 }
 
