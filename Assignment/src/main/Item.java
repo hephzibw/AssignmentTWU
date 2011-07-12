@@ -1,18 +1,22 @@
 package main;
 
+import java.text.DecimalFormat;
+
 public class Item {
     private String name;
-    private double cost;
+    private double shelfPrice;
     private boolean imported;
     private boolean exempted;
+    private double cost;
 
-    public Item(String name, double cost, boolean imported) {
-        this.name=name;
-        this.cost=cost;
-        this.imported=imported;
+    public Item(String name, double shelfPrice, boolean imported) {
+        this.name = name;
+        this.shelfPrice = shelfPrice;
+        this.imported = imported;
     }
 
-    public Item() {}
+    public Item() {
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -22,12 +26,12 @@ public class Item {
         return name;
     }
 
-    public void setCost(double cost) {
-        this.cost = cost;
+    public void setShelfPrice(double shelfPrice) {
+        this.shelfPrice = shelfPrice;
     }
 
-    public double getCost() {       
-        return cost;
+    public double getShelfPrice() {
+        return shelfPrice;
     }
 
     public void setImported(boolean imported) {
@@ -38,10 +42,22 @@ public class Item {
         return imported;
     }
 
+
     public boolean checkWhetherItemIsExempted() {
-        if(name=="book" || name=="chocolate bar" || name=="box of imported chocolates" || name=="imported box of chocolates")
-           exempted=true;
-        else exempted=false;
+        if ((name.equals("book")) || (name.equals("chocolate bar")) || (name.equals("box of imported chocolates")) || (name.equals("imported box of chocolates")) || (name.equals("packet of headache pills")))
+            exempted = true;
+        else
+            exempted = false;
         return exempted;
+    }
+
+
+    public double getCostOfItem() {
+        double salesTaxOnItem = SalesTaxCalculator.getSalesTaxOnItem(this);
+
+        cost = shelfPrice + salesTaxOnItem;
+        DecimalFormat currencyFormat = new DecimalFormat("#.##");
+        cost = Double.parseDouble(currencyFormat.format(cost));
+        return cost;
     }
 }

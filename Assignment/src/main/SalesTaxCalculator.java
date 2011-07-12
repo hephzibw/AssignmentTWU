@@ -3,24 +3,33 @@ package main;
 public class SalesTaxCalculator {
 
 
+    public SalesTaxCalculator() {
 
-    public SalesTaxCalculator() {}
-
-    public double getActualSalesTaxOnItem(Item item)
-    {
-            if(item.getImported()==true)
-                 {if(item.checkWhetherItemIsExempted()==true)
-                    return 0.05*item.getCost();
-                   else
-                    return 0.15*item.getCost();
-                 }
-            else
-                 {if(item.checkWhetherItemIsExempted()==true)
-                    return 0.0;
-                   else
-                    return 0.1*item.getCost();
-                 }
     }
 
+    public static double getSalesTaxOnItem(Item item) {
+        double tax;
 
+        if ((item.getImported() == true) && (item.checkWhetherItemIsExempted() == true)) {
+
+            tax = Math.ceil(0.05 * item.getShelfPrice() * 20) / 20;
+
+        } else if ((item.getImported() == true) && (item.checkWhetherItemIsExempted() == false)) {
+
+            tax =  Math.ceil(0.15 * item.getShelfPrice() * 20) / 20;
+        } else if ((item.getImported() == false) && (item.checkWhetherItemIsExempted() == true)) {
+
+            tax =  0.0;
+        } else {
+
+           tax =  Math.ceil(0.1 * item.getShelfPrice() * 20) / 20;
+        }
+
+      
+        return tax;
+    }
 }
+
+
+
+

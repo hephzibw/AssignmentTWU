@@ -17,8 +17,8 @@ public class ItemTest {
     @Test
     public void shouldGetTheSameCostAsSet() {
         Item item = new Item();
-        item.setCost(10.0);
-        assertThat(10.0, is(item.getCost()));
+        item.setShelfPrice(10.0);
+        assertThat(10.0, is(item.getShelfPrice()));
     }
 
     @Test
@@ -32,7 +32,7 @@ public class ItemTest {
     public void testingTheConstructor() {
         Item item = new Item("Box of Chocolates", 10.0, true);
         assertThat("Box of Chocolates", is(item.getName()));
-        assertThat(10.0, is(item.getCost()));
+        assertThat(10.0, is(item.getShelfPrice()));
         assertThat(true, is(item.getImported()));
     }
 
@@ -59,4 +59,13 @@ public class ItemTest {
         Item item = new Item("imported box of chocolates", 60.56, true);
         assertThat(true, is(item.checkWhetherItemIsExempted()));
     }
+
+    @Test
+    public void shouldCalculateCostOfImportedBottleOfPerfumeCosting27Point99As32Point19(){
+        Item item=new Item("imported bottle of perfume",27.99,true);
+        assertThat(32.19, is(item.getCostOfItem()));
+
+    }
+
 }
+
