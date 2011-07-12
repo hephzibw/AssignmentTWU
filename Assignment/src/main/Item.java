@@ -4,6 +4,7 @@ public class Item {
     private String name;
     private double cost;
     private boolean imported;
+    private boolean exempted;
 
     public Item(String name, double cost, boolean imported) {
         this.name=name;
@@ -37,4 +38,10 @@ public class Item {
         return imported;
     }
 
+    public boolean checkWhetherItemIsExempted() {
+        if(name=="book" || name=="chocolate bar" || name=="box of imported chocolates" || name=="imported box of chocolates")
+           exempted=true;
+        else exempted=false;
+        return exempted;
+    }
 }
